@@ -1,52 +1,69 @@
-import { styles } from "../styles";
+import { portfolioData } from "../data/portfolio";
 
-const skillsData = [
-    {
-        category: "Languages",
-        skills: ["Java", "JavaScript", "C++"],
-    },
-    {
-        category: "Frameworks & Libraries",
-        skills: ["React.js", "Node.js", "Three.js", "Tailwind CSS"],
-    },
-    {
-        category: "Tools & Databases",
-        skills: ["MongoDB", "Git", "GitHub"],
-    },
-];
+export const Skills = () => {
+  return (
+    <section className="w-full py-20 bg-black text-white px-6">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold mb-16">We specialise in crafting the stories, brands and sites that shape what's next.</h2>
 
-const Skills = () => {
-    return (
-        <div className={`${styles.padding} max-w-7xl mx-auto relative z-0`}>
-            <div className='flex flex-col text-center w-full mb-10'>
-                <p className={styles.sectionSubText}>What I bring to the table</p>
-                <h2 className={styles.sectionHeadText}>Skills.</h2>
+        <div className="grid md:grid-cols-2 gap-12">
+          <div>
+            <h3 className="text-2xl font-bold mb-6">Languages</h3>
+            <div className="flex flex-wrap gap-3">
+              {portfolioData.skills.languages.map((lang) => (
+                <span
+                  key={lang}
+                  className="px-4 py-2 bg-zinc-800 rounded-full text-white hover:bg-zinc-700 transition"
+                >
+                  {lang}
+                </span>
+              ))}
             </div>
+          </div>
 
-            <div className='flex flex-wrap justify-center gap-10'>
-                {skillsData.map((category) => (
-                    <div
-                        key={category.category}
-                        className='bg-black-200 p-6 rounded-2xl w-full sm:w-[300px] border border-white-100/10'
-                    >
-                        <h3 className='text-white text-[20px] font-bold mb-4 border-b border-secondary pb-2'>
-                            {category.category}
-                        </h3>
-                        <div className='flex flex-wrap gap-2'>
-                            {category.skills.map((skill) => (
-                                <span
-                                    key={skill}
-                                    className='bg-tertiary text-secondary py-1 px-3 rounded-lg text-[14px]'
-                                >
-                                    {skill}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                ))}
+          <div>
+            <h3 className="text-2xl font-bold mb-6">Frameworks & Tools</h3>
+            <div className="flex flex-wrap gap-3">
+              {portfolioData.skills.frameworks.map((fw) => (
+                <span
+                  key={fw}
+                  className="px-4 py-2 bg-zinc-800 rounded-full text-white hover:bg-zinc-700 transition"
+                >
+                  {fw}
+                </span>
+              ))}
             </div>
+          </div>
+
+          <div>
+            <h3 className="text-2xl font-bold mb-6">Tools & Platforms</h3>
+            <div className="flex flex-wrap gap-3">
+              {portfolioData.skills.tools.map((tool) => (
+                <span
+                  key={tool}
+                  className="px-4 py-2 bg-zinc-800 rounded-full text-white hover:bg-zinc-700 transition"
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-2xl font-bold mb-6">Soft Skills</h3>
+            <div className="flex flex-wrap gap-3">
+              {portfolioData.skills.softSkills.map((skill) => (
+                <span
+                  key={skill}
+                  className="px-4 py-2 bg-zinc-800 rounded-full text-white hover:bg-zinc-700 transition"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
-    );
+      </div>
+    </section>
+  );
 };
-
-export default Skills;

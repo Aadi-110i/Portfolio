@@ -1,65 +1,108 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-
-import { styles } from "../styles";
-import MagneticButton from "./MagneticButton";
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import '../styles/navbar.css'
 
 const Navbar = () => {
-    const [active, setActive] = useState("");
-    const [scrolled, setScrolled] = useState(false);
-    const { scrollY } = useScroll();
+    const [isScrolled, setIsScrolled] = useState(false)
+    const [time, setTime] = useState(new Date())
+    const [isOpen, setIsOpen] = useState(false)
 
-    useMotionValueEvent(scrollY, "change", (latest) => {
-        if (latest > 100) {
-            setScrolled(true);
-        } else {
-            setScrolled(false);
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50)
         }
-    });
+        window.addEventListener('scroll', handleScroll)
+
+        const timer = setInterval(() => setTime(new Date()), 1000)
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+            clearInterval(timer)
+        }
+    }, [])
+
+    const navItems = [
+        { name: 'Work', href: '#work' },
+        { name: 'Exp', href: '#experience' },
+        { name: 'Talk', href: '#contact' }
+    ]
+
+    const formatTime = (date: Date) => {
+        return date.toLocaleTimeString('en-US', {
+            hour12: true,
+            hour: '2-digit',
+            minute: '2-digit'
+        })
+    }
+
+    const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+        e.preventDefault()
+        if (window.lenis) {
+            window.lenis.scrollTo(id)
+        } else {
+            document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
+        }
+    }
 
     return (
-        <motion.nav
-            className={`${styles.paddingX
-                } w-full flex items-center py-5 fixed top-0 z-20 transition-all duration-300 ${scrolled ? "bg-primary/80 backdrop-blur-md shadow-lg" : "bg-transparent"
-                }`}
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.5 }}
-        >
-            <div className='w-full flex justify-between items-center max-w-7xl mx-auto'>
-                <Link
-                    to='/'
-                    className='flex items-center gap-2'
-                    onClick={() => {
-                        setActive("");
-                        window.scrollTo(0, 0);
-                    }}
-                >
-                    <img src="/logo.svg" alt='logo' className='w-9 h-9 object-contain' />
-                    <p className='text-white text-[18px] font-bold cursor-pointer flex '>
-                        Aadarsh &nbsp;
-                        <span className='sm:block hidden'> | Computer Science</span>
-                    </p>
-                </Link>
+        <nav className={`navbar-wrapper ${isScrolled ? 'scrolled' : ''}`}>
+            <div className="navbar-container container">
+                <div className="nav-left">
+                    <a href="#" className="nav-logo" onClick={(e) => handleScrollTo(e, '#root')}>
+                        <div className="nav-logo-text">AD</div>
+                    </a>
+                    <div className="nav-info text-mono">
+                        <span className="status-dot" />
+                        Available for Work — {formatTime(time)}
+                    </div>
+                </div>
 
-                <ul className='list-none hidden sm:flex flex-row gap-10'>
-                    {["About", "Projects", "Contact"].map((nav) => (
-                        <li
-                            key={nav}
-                            className={`${active === nav ? "text-white" : "text-secondary"
-                                } hover:text-white text-[18px] font-medium cursor-pointer`}
-                            onClick={() => setActive(nav)}
-                        >
-                            <MagneticButton>
-                                <a href={`#${nav.toLowerCase()}`}>{nav}</a>
-                            </MagneticButton>
-                        </li>
-                    ))}
-                </ul>
+                <div className="nav-right">
+                    <ul className="nav-links">
+                        {navItems.map((item) => (
+                            <li key={item.name}>
+                                <a
+                                    href={item.href}
+                                    className="nav-link text-mono"
+                                    onClick={(e) => handleScrollTo(e, item.href)}
+                                >
+                                    {item.name}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                    <button className="menu-toggle" onClick={() => setIsOpen(!isOpen)}>
+                        <div className={`hamburger ${isOpen ? 'open' : ''}`} />
+                    </button>
+                </div>
             </div>
-        </motion.nav>
-    );
-};
 
-export default Navbar;
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="mobile-menu"
+                    >
+                        {navItems.map((item) => (
+                            <a
+                                key={item.name}
+                                href={item.href}
+                                onClick={(e) => {
+                                    setIsOpen(false)
+                                    handleScrollTo(e, item.href)
+                                }}
+                                className="mobile-nav-link text-huge"
+                            >
+                                {item.name}
+                            </a>
+                        ))}
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </nav>
+    )
+}
+
+export default Navbar

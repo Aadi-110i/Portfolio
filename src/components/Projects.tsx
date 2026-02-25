@@ -1,92 +1,66 @@
-import Tilt from "react-parallax-tilt";
-import { motion } from "framer-motion";
-import { styles } from "../styles";
+import { portfolioData } from "../data/portfolio";
 
-const projects = [
-    {
-        name: "Farmer Friends",
-        description:
-            "AI-powered agriculture support platform offering multilingual chat assistance and climate-based crop recommendations.",
-        tags: [
-            { name: "react", color: "text-gray-400" },
-            { name: "node.js", color: "text-gray-300" },
-            { name: "openai", color: "text-white" },
-        ],
-        image: "", // Placeholder
-        source_code_link: "https://github.com/Aadi-110i", // General link as specific one wasn't fully clear
-    },
-    {
-        name: "Yatra",
-        description:
-            "Digital tourism platform showcasing Sikkim’s monasteries with interactive 3D models and AR navigation cues.",
-        tags: [
-            { name: "three.js", color: "text-white" },
-            { name: "react", color: "text-gray-400" },
-            { name: "tailwind", color: "text-gray-300" },
-        ],
-        image: "", // Placeholder
-        source_code_link: "https://github.com/Aadi-110i",
-    },
-];
+export const Projects = () => {
+  return (
+    <section id="projects" className="w-full py-20 bg-zinc-900 text-white px-6">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold mb-4">Featured projects</h2>
+        <p className="text-gray-400 mb-12">
+          Carefully crafted digital experiences that push boundaries
+        </p>
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ProjectCard = ({ name, description, tags }: any) => {
-    return (
-        <motion.div >
-            <Tilt
-                tiltMaxAngleX={45}
-                tiltMaxAngleY={45}
-                scale={1}
-                transitionSpeed={450}
-                className='bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full h-full'
+        <div className="space-y-12">
+          {portfolioData.projects.map((project, index) => (
+            <div
+              key={project.id}
+              className={`grid md:grid-cols-2 gap-8 items-center ${
+                index % 2 === 1 ? "md:flex-row-reverse" : ""
+              }`}
             >
-                <div className='relative w-full h-[230px] bg-black-100 rounded-2xl flex justify-center items-center'>
-                    <span className="text-secondary text-[50px]">🚀</span>
+              <div className={index % 2 === 1 ? "md:order-2" : ""}>
+                <div className="bg-gradient-to-br from-teal-400 to-green-500 rounded-lg h-64 md:h-80 flex items-center justify-center">
+                  <span className="text-white text-2xl font-bold text-center px-6">
+                    {project.title}
+                  </span>
                 </div>
+              </div>
 
-                <div className='mt-5'>
-                    <h3 className='text-white font-bold text-[24px]'>{name}</h3>
-                    <p className='mt-2 text-secondary text-[14px]'>{description}</p>
-                </div>
+              <div className={index % 2 === 1 ? "md:order-1" : ""}>
+                <span className="text-teal-400 text-sm font-semibold">
+                  {project.category}
+                </span>
+                <h3 className="text-3xl font-bold my-4">{project.title}</h3>
+                <p className="text-gray-300 mb-6">{project.description}</p>
 
-                <div className='mt-4 flex flex-wrap gap-2'>
-                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                    {tags.map((tag: any) => (
-                        <p key={tag.name} className={`text-[14px] ${tag.color}`}>
-                            #{tag.name}
-                        </p>
+                <div className="mb-6">
+                  <p className="text-sm font-semibold text-gray-400 mb-2">
+                    Tech Stack:
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 bg-zinc-800 text-teal-400 rounded-full text-sm"
+                      >
+                        {tech}
+                      </span>
                     ))}
+                  </div>
                 </div>
-            </Tilt>
-        </motion.div>
-    );
-};
 
-const Projects = () => {
-    return (
-        <section id="projects" className={`${styles.padding} max-w-7xl mx-auto relative z-0`}>
-            <motion.div>
-                <p className={styles.sectionSubText}>My work</p>
-                <h2 className={styles.sectionHeadText}>Projects.</h2>
-            </motion.div>
-
-            <div className='w-full flex'>
-                <motion.p
-                    className='mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]'
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-6 py-3 bg-teal-500 text-black font-semibold rounded hover:bg-teal-400 transition"
                 >
-                    Following projects showcases my skills and experience through
-                    real-world examples of my work. Each project is briefly described with
-                    links to code repositories.
-                </motion.p>
+                  View Project →
+                </a>
+              </div>
             </div>
-
-            <div className='mt-20 flex flex-wrap gap-7'>
-                {projects.map((project, index) => (
-                    <ProjectCard key={`project-${index}`} index={index} {...project} />
-                ))}
-            </div>
-        </section>
-    );
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
-
-export default Projects;
