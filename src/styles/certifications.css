@@ -1,0 +1,163 @@
+.certifications-section {
+    position: relative;
+}
+
+.certs-header {
+    margin-bottom: var(--space-lg);
+}
+
+.certs-header p {
+    margin-top: 0.5rem;
+}
+
+/* ── Timeline Card ── */
+.cert-timeline-card {
+    position: relative;
+    cursor: pointer;
+}
+
+.cert-timeline-info {
+    background: var(--color-muted);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.cert-timeline-card:hover .cert-timeline-info {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.float-badge {
+    position: absolute;
+    top: 1.25rem;
+    right: 2rem;
+}
+
+/* Top row: logo + badge */
+.cert-timeline-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+}
+
+.cert-timeline-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff; /* intentional: logo text on colored bg */
+    flex-shrink: 0;
+}
+
+.cert-timeline-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: var(--color-muted);
+    color: var(--color-text);
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+/* Badge dot matches the coral color */
+.cert-timeline-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-text);
+}
+
+/* Title & issuer */
+.cert-timeline-title {
+    font-size: 1.3rem;
+    line-height: 1.25;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+}
+
+.cert-timeline-issuer {
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+.cert-timeline-partner {
+    font-size: 0.7rem;
+    opacity: 0.5;
+}
+
+/* ── Floating Hover Image Preview ── */
+.cert-floating-preview {
+    width: 320px; /* the 6x6 box size */
+    height: auto;
+    border-radius: 0;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background: var(--color-bg);
+    padding: 4px; /* Tiny white border giving it a physical photo look */
+}
+
+/* Theme styling for enhanced visibility */
+.scenic .cert-timeline-badge {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--color-text);
+    backdrop-filter: blur(10px);
+}
+
+.scenic .cert-timeline-info {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+}
+
+.dark .cert-timeline-badge {
+    background: rgba(30, 30, 30, 0.9);
+    color: #10B981;
+}
+
+.dark .cert-timeline-badge-dot {
+    background: #10B981;
+}
+
+.dark .cert-timeline-info {
+    background: rgba(30, 30, 30, 0.9);
+}
+
+.cert-floating-img-square {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Force square aspect ratio */
+    overflow: hidden;
+    border-radius: 0;
+}
+
+.cert-floating-img-square img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensure full certificate is visible inside the square */
+    display: block;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .cert-timeline-info {
+        padding: 1.25rem 1.5rem;
+    }
+    .cert-timeline-title {
+        font-size: 1.1rem;
+    }
+    .certs-header h2 {
+        font-size: 2.5rem;
+    }
+}

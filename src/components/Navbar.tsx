@@ -1,0 +1,111 @@
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ThemeToggle } from './ui/ThemeToggle'
+import '../styles/navbar.css'
+
+const Navbar = () => {
+    const [isScrolled, setIsScrolled] = useState(false)
+    const [time, setTime] = useState(new Date())
+    const [isOpen, setIsOpen] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50)
+        }
+        window.addEventListener('scroll', handleScroll)
+
+        const timer = setInterval(() => setTime(new Date()), 1000)
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+            clearInterval(timer)
+        }
+    }, [])
+
+    const navItems = [
+        { name: 'Work', href: '#work' },
+        { name: 'Exp', href: '#experience' },
+        { name: 'Creds', href: '#certifications' },
+        { name: 'Talk', href: '#contact' }
+    ]
+
+    const formatTime = (date: Date) => {
+        return date.toLocaleTimeString('en-US', {
+            hour12: true,
+            hour: '2-digit',
+            minute: '2-digit'
+        })
+    }
+
+    const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+        e.preventDefault()
+        if (window.lenis) {
+            window.lenis.scrollTo(id)
+        } else {
+            document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
+        }
+    }
+
+    return (
+        <nav className={`navbar-wrapper ${isScrolled ? 'scrolled' : ''}`}>
+            <div className="navbar-container container">
+                <div className="nav-left">
+                    <a href="#" className="nav-logo" onClick={(e) => handleScrollTo(e, '#root')}>
+                        <div className="nav-logo-text">AD</div>
+                    </a>
+                    <div className="nav-info text-mono">
+                        <span className="status-dot" />
+                        Available for Work — {formatTime(time)}
+                    </div>
+                </div>
+
+                <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <ul className="nav-links">
+                        {navItems.map((item) => (
+                            <li key={item.name}>
+                                <a
+                                    href={item.href}
+                                    className="nav-link text-mono"
+                                    onClick={(e) => handleScrollTo(e, item.href)}
+                                >
+                                    {item.name}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                    <ThemeToggle />
+                    <button className="menu-toggle" onClick={() => setIsOpen(!isOpen)}>
+                        <div className={`hamburger ${isOpen ? 'open' : ''}`} />
+                    </button>
+                </div>
+            </div>
+
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="mobile-menu"
+                    >
+                        {navItems.map((item) => (
+                            <a
+                                key={item.name}
+                                href={item.href}
+                                onClick={(e) => {
+                                    setIsOpen(false)
+                                    handleScrollTo(e, item.href)
+                                }}
+                                className="mobile-nav-link text-huge"
+                            >
+                                {item.name}
+                            </a>
+                        ))}
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </nav>
+    )
+}
+
+export default Navbar
