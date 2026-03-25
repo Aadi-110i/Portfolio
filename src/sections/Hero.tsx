@@ -43,63 +43,78 @@ const Hero = () => {
         <div ref={containerRef} style={{ height: '300vh' }}>
             <section className="hero-section container" style={{ position: 'sticky', top: 0 }}>
                 <div className="hero-content">
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="hero-title-wrapper"
-                    >
-                        <h1 className="text-huge">
-                            AADARSH<span className="text-coral">.</span>
-                        </h1>
-                    </motion.div>
-
-                    <div className="hero-bottom">
+                    <div className="hero-left">
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 50 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5, duration: 0.9 }}
-                            className="hero-about"
+                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                            className="hero-title-wrapper"
                         >
-                            <p className="text-mono hero-role">
-                                <span className="status-dot" />
-                                Full-Stack Developer &amp; UI Engineer
-                            </p>
-
-                            <ScrollRevealText
-                                text="Hey, I'm Aadarsh, a developer who loves turning complex problems into clean, fast, and delightful digital products. I specialize in building end-to-end web applications with a strong eye for design and obsession with performance."
-                                progress={scrollYProgress}
-                                startOffset={0.02}
-                                endOffset={0.55}
-                                className="hero-bio"
-                            />
-
-                            <ScrollRevealText
-                                text="Whether it's a sleek landing page or a full-scale SaaS platform, I bring precision and creativity to every line of code."
-                                progress={scrollYProgress}
-                                startOffset={0.55}
-                                endOffset={1.0}
-                                className="hero-bio"
-                            />
-
-                            <div className="hero-stack">
-                                {['React', 'Node.js', 'TypeScript', 'MongoDB', 'Tailwind'].map(tech => (
-                                    <span key={tech} className="hero-tag text-mono">{tech}</span>
-                                ))}
-                            </div>
-
-                            <div className="hero-links">
-                                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hero-link text-mono">
-                                    GitHub ↗
-                                </a>
-                                <a href="https://linkedin.com/in/aadarsh" target="_blank" rel="noopener noreferrer" className="hero-link text-mono">
-                                    LinkedIn ↗
-                                </a>
-                            </div>
+                            <h1 className="text-huge">
+                                AADARSH<span className="text-coral">.</span>
+                            </h1>
                         </motion.div>
 
+                        <div className="hero-bottom">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5, duration: 0.9 }}
+                                className="hero-about"
+                            >
+                                <p className="text-mono hero-role">
+                                    <span className="status-dot" />
+                                    Full-Stack Developer &amp; UI Engineer
+                                </p>
 
-                    </div>
+                                <ScrollRevealText
+                                    text="Hey, I'm Aadarsh, a developer who loves turning complex problems into clean, fast, and delightful digital products. I specialize in building end-to-end web applications with a strong eye for design and obsession with performance."
+                                    progress={scrollYProgress}
+                                    startOffset={0.02}
+                                    endOffset={0.55}
+                                    className="hero-bio"
+                                />
+
+                                <ScrollRevealText
+                                    text="Whether it's a sleek landing page or a full-scale SaaS platform, I bring precision and creativity to every line of code."
+                                    progress={scrollYProgress}
+                                    startOffset={0.55}
+                                    endOffset={1.0}
+                                    className="hero-bio"
+                                />
+
+                                <div className="hero-stack">
+                                    {['React', 'Node.js', 'TypeScript', 'MongoDB', 'Tailwind', 'Three.js'].map(tech => (
+                                        <span key={tech} className="hero-tag text-mono">{tech}</span>
+                                    ))}
+                                </div>
+
+                                <div className="hero-links">
+                                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hero-link text-mono">
+                                        GitHub ↗
+                                    </a>
+                                    <a href="https://www.linkedin.com/in/aadarsh-sharma11" target="_blank" rel="noopener noreferrer" className="hero-link text-mono">
+                                        LinkedIn ↗
+                                    </a>
+                                </div>
+                            </motion.div>
+
+
+                        </div>
+                    </div>{/* hero-left */}
+
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.85 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.3, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                        className="hero-visual"
+                    >
+                        <img
+                            src="/assets/profile.jpg"
+                            alt="Aadarsh"
+                            className="hero-avatar-img"
+                        />
+                    </motion.div>
                 </div>
 
                 <div className="hero-glow" />

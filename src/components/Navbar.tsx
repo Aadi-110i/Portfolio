@@ -26,7 +26,8 @@ const Navbar = () => {
         { name: 'Work', href: '#work' },
         { name: 'Exp', href: '#experience' },
         { name: 'Creds', href: '#certifications' },
-        { name: 'Talk', href: '#contact' }
+        { name: 'Talk', href: '#contact' },
+        { name: 'Resume ↓', href: '/assets/resume.pdf', isDownload: true }
     ]
 
     const formatTime = (date: Date) => {
@@ -63,13 +64,24 @@ const Navbar = () => {
                     <ul className="nav-links">
                         {navItems.map((item) => (
                             <li key={item.name}>
-                                <a
-                                    href={item.href}
-                                    className="nav-link text-mono"
-                                    onClick={(e) => handleScrollTo(e, item.href)}
-                                >
-                                    {item.name}
-                                </a>
+                                {item.isDownload ? (
+                                    <a
+                                        href={item.href}
+                                        download="Aadarsh_Sharma_Resume.pdf"
+                                        className="nav-link text-mono"
+                                        style={{ color: 'var(--color-primary)', opacity: 1 }}
+                                    >
+                                        {item.name}
+                                    </a>
+                                ) : (
+                                    <a
+                                        href={item.href}
+                                        className="nav-link text-mono"
+                                        onClick={(e) => handleScrollTo(e, item.href)}
+                                    >
+                                        {item.name}
+                                    </a>
+                                )}
                             </li>
                         ))}
                     </ul>
@@ -89,17 +101,30 @@ const Navbar = () => {
                         className="mobile-menu"
                     >
                         {navItems.map((item) => (
-                            <a
-                                key={item.name}
-                                href={item.href}
-                                onClick={(e) => {
-                                    setIsOpen(false)
-                                    handleScrollTo(e, item.href)
-                                }}
-                                className="mobile-nav-link text-huge"
-                            >
-                                {item.name}
-                            </a>
+                            item.isDownload ? (
+                                <a
+                                    key={item.name}
+                                    href={item.href}
+                                    download="Aadarsh_Sharma_Resume.pdf"
+                                    onClick={() => setIsOpen(false)}
+                                    className="mobile-nav-link text-huge"
+                                    style={{ color: 'var(--color-primary)' }}
+                                >
+                                    {item.name}
+                                </a>
+                            ) : (
+                                <a
+                                    key={item.name}
+                                    href={item.href}
+                                    onClick={(e) => {
+                                        setIsOpen(false)
+                                        handleScrollTo(e, item.href)
+                                    }}
+                                    className="mobile-nav-link text-huge"
+                                >
+                                    {item.name}
+                                </a>
+                            )
                         ))}
                     </motion.div>
                 )}

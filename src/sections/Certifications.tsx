@@ -5,12 +5,31 @@ import '../styles/certifications.css'
 
 const certifications = [
     {
+        title: 'The Bits and Bytes of Computer Networking',
+        issuer: 'Google',
+        partner: null,
+        date: '2024',
+        accent: '#4285F4',
+        image: '/assets/networking-certificate.png',
+        link: 'https://coursera.org/verify/LHGMC3QJ41X6',
+    },
+    {
+        title: 'Introduction to Hardware and Operating Systems',
+        issuer: 'IBM',
+        partner: null,
+        date: '2024',
+        accent: '#054ADA',
+        image: '/assets/hardware-certificate.png',
+        link: 'https://coursera.org/verify/QNGIH2OVYA83',
+    },
+    {
         title: 'Full Stack Development with MERN',
         issuer: 'Nasscom',
         partner: null,
         date: '2025',
         accent: '#0076D6',
         image: '/assets/mern-certificate.png',
+        link: '/assets/mern-certificate.png',
     },
     {
         title: 'Full Stack Development with MEAN',
@@ -19,6 +38,7 @@ const certifications = [
         date: '2025',
         accent: '#0076D6',
         image: '/assets/mean-certificate.png',
+        link: '/assets/mean-certificate.png',
     },
     {
         title: 'Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate',
@@ -27,6 +47,7 @@ const certifications = [
         date: '2025',
         accent: '#C74634',
         image: '/assets/oracle-ai-certificate.png',
+        link: '/assets/oracle-ai-certificate.png',
     },
     {
         title: 'Oracle Data Platform 2025 Certified Foundations Associate',
@@ -35,6 +56,16 @@ const certifications = [
         date: '2025',
         accent: '#C74634',
         image: '/assets/oracle-data-certificate.png',
+        link: '/assets/oracle-data-certificate.png',
+    },
+    {
+        title: 'GEN AI NASSCOM Certification',
+        issuer: 'NASSCOM',
+        partner: 'SFJ',
+        date: '2026',
+        accent: '#FFD700',
+        image: '/assets/genai-certificate.png',
+        link: '/assets/genai-certificate.png',
     },
 ]
 
@@ -65,6 +96,17 @@ const CertCard = ({ cert, index }: { cert: typeof certifications[0]; index: numb
                         <p className="cert-timeline-partner text-mono uppercase tracking-widest text-[10px] text-muted-foreground font-bold">{cert.partner}</p>
                     )}
                 </div>
+
+                {cert.link && (
+                    <a 
+                        href={cert.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="cert-verify-link text-mono text-[9px] uppercase tracking-tighter mt-4 inline-block hover:text-coral transition-colors"
+                    >
+                        Verify Certificate ↗
+                    </a>
+                )}
             </div>
 
             {/* Hover floating image preview (on the right) */}

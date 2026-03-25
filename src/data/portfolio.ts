@@ -79,6 +79,22 @@ export const portfolioData = {
       tech: ["React.js", "Node.js", "Express", "MongoDB"],
       link: "https://github.com/Aadi-110i",
     },
+    {
+      id: 5,
+      title: "Obsidian - Modern Seat Booking System",
+      duration: "Feb 2026",
+      category: "SaaS & Booking",
+      image: "/assets/obsidian-screenshot.png",
+      description:
+        "A high-performance seat booking platform built with Next.js 15, featuring a sleek obsidian-themed UI, real-time availability, and secure authentication.",
+      features: [
+        "Implemented real-time seat status tracking and interactive maps",
+        "Secure user authentication with JWT and Bcrypt encryption",
+        "Optimized database queries with Prisma and PostgreSQL",
+      ],
+      tech: ["Next.js 15", "Prisma", "Tailwind CSS", "Framer Motion", "MongoDB/PostgreSQL"],
+      link: "https://github.com/Aadi-110i/Obsidian-Seat-Booking",
+    },
   ],
   experience: [
     {
@@ -133,6 +149,11 @@ export const portfolioData = {
     },
   ],
   achievements: [
+    {
+      title: "Smart India Hackathon Participant",
+      description: "Developed 'Yatra', a 3D digital tourism platform for Sikkim's monasteries",
+      date: "August 2025",
+    },
     {
       title: "Secured Global Rank 253rd",
       description: "Among 27k+ participants in Leetcode Biweekly Contest 168",
