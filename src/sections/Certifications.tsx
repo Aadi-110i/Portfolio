@@ -92,11 +92,9 @@ const CertCard = ({
     index,
     onMouseEnter,
     onMouseLeave,
-    hoveredIndex,
 }: {
     cert: typeof certifications[0]
     index: number
-    hoveredIndex: number | null
     onMouseEnter: (i: number) => void
     onMouseLeave: () => void
 }) => {
@@ -179,7 +177,6 @@ const Certifications = () => {
             <CertCard
                 cert={cert}
                 index={index}
-                hoveredIndex={hoveredIndex}
                 onMouseEnter={(i) => { setHoveredIndex(i); setIsVisible(true) }}
                 onMouseLeave={() => { setHoveredIndex(null); setIsVisible(false) }}
             />
