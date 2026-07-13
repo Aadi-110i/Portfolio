@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import '../styles/hero.css'
 
-const ScrollRevealText = ({ text, progress, startOffset, endOffset, className }: { text: string; progress: any; startOffset: number; endOffset: number; className: string }) => {
+export const ScrollRevealText = ({ text, progress, startOffset, endOffset, className }: { text: string; progress: any; startOffset: number; endOffset: number; className: string }) => {
     const words = text.split(' ')
 
     return (
@@ -51,7 +51,7 @@ const Hero = () => {
                             className="hero-title-wrapper"
                         >
                             <h1 className="text-huge">
-                                AADARSH<span className="text-coral">.</span>
+                                HASWANTH<span className="text-coral">.</span>
                             </h1>
                         </motion.div>
 
@@ -68,7 +68,7 @@ const Hero = () => {
                                 </p>
 
                                 <ScrollRevealText
-                                    text="Hey, I'm Aadarsh, a developer who loves turning complex problems into clean, fast, and delightful digital products. I specialize in building end-to-end web applications with a strong eye for design and obsession with performance."
+                                    text="Hey, I'm Haswanth, a developer who loves turning complex problems into clean, fast, and delightful digital products. I specialize in building end-to-end web applications with a strong eye for design and obsession with performance."
                                     progress={scrollYProgress}
                                     startOffset={0.02}
                                     endOffset={0.55}
