@@ -21,6 +21,51 @@ export const portfolioData = {
   },
   projects: [
     {
+      id: 6,
+      title: "AI Collab Builder",
+      duration: "2026",
+      category: "AI & Collaboration",
+      image: "/assets/ai-collab-builder.jpg",
+      description: "A collaborative workspace for teams building software with AI. Features module ownership, a merge pipeline, and auto-test running.",
+      features: [
+        "Module assignment, ZIP upload, standardization, and merge flow",
+        "Auth flow with Supabase or local demo login",
+        "Auto-test runner for merged output"
+      ],
+      tech: ["React.js", "Node.js", "Supabase"],
+      link: "https://ai-contributor.vercel.app/",
+    },
+    {
+      id: 7,
+      title: "LeadPulse",
+      duration: "2026",
+      category: "CRM & Backend",
+      image: "/assets/leadpulse.jpg",
+      description: "AI-Powered Call & Lead Management Backend Platform that automatically transcribes and summarizes customer calls.",
+      features: [
+        "Automatically transcribing and summarizing every customer call using LLMs",
+        "Queuing and sending WhatsApp follow-ups within minutes of a call ending",
+        "Exposing clean REST APIs for CRM integration"
+      ],
+      tech: ["Node.js", "PostgreSQL", "Redis", "OpenAI"],
+      link: "https://lead-pulse-zeta.vercel.app/",
+    },
+    {
+      id: 8,
+      title: "Himachal Treasures - 360 Virtual Visit",
+      duration: "2026",
+      category: "Tourism & Culture",
+      image: "/assets/himachal-treasures.jpg",
+      description: "An immersive web experience offering 360° virtual tours of sacred monasteries and a digital sanctuary for Himachal Pradesh's cultural heritage.",
+      features: [
+        "360° Virtual Tours of monastery interiors and courtyards",
+        "Digital Archives of Buddhist murals, manuscripts, and relics",
+        "Interactive Discovery through guided tours and knowledge quests"
+      ],
+      tech: ["React.js", "Node.js", "3D Tech"],
+      link: "https://aasa-med-chem.vercel.app/",
+    },
+    {
       id: 1,
       title: "Farmer Friends - AI-Powered Smart Agriculture Assistant",
       duration: "Sep'25-Oct'25",

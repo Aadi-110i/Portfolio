@@ -49,7 +49,7 @@ const profiles = [
             { label: 'Contributions', value: '1,200+' },
             { label: 'Followers', value: '50' }
         ],
-        link: 'https://github.com',
+        link: 'https://github.com/Aadi-110i',
         color: '#2ea44f'
     }
 ]
