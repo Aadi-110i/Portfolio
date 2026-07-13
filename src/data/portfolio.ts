@@ -143,16 +143,22 @@ export const portfolioData = {
   ],
   experience: [
     {
-      title: "Open Source Contributor",
-      company: "freeCodeCamp",
-      duration: "Jun 2025 - Present",
-      description: "Contributing to freeCodeCamp's open-source curriculum — fixing bugs, improving documentation, and building interactive coding challenges used by millions of learners worldwide",
+      title: "Training in Data Structures & Algorithms",
+      company: "Lovely Professional University",
+      duration: "2025",
+      description: "Intensive training in Data Structures and Algorithms focusing on problem-solving and optimization.",
     },
     {
-      title: "Freelance Full Stack Developer",
-      company: "Self-Employed",
-      duration: "Jan 2025 - May 2025",
-      description: "Developed and delivered custom web applications for small businesses, including e-commerce dashboards and booking systems using the MERN stack",
+      title: "Training in MERN Stack & DevOps",
+      company: "CipherSchools",
+      duration: "2026",
+      description: "Comprehensive training covering full-stack web development using MongoDB, Express, React, Node.js, and modern DevOps practices.",
+    },
+    {
+      title: "Yatra — Smart India Hackathon Project",
+      company: "Smart India Hackathon",
+      duration: "Jul '25 – Aug '25",
+      description: "Developed Yatra for the Smart India Hackathon, a digital tourism platform showcasing Sikkim's monasteries with interactive 3D models and experiences.",
     },
   ],
   education: [

@@ -4,21 +4,30 @@ import '../styles/experience.css'
 
 const experiences = [
     {
-        role: 'Obsidian — Modern Seat Booking Platform',
-        company: 'SaaS & Productivity',
-        period: 'Feb 2026',
-        details: 'Built a high-performance seat booking system with a focus on real-time availability and a sleek obsidian-themed developer experience.',
+        role: 'Training in Data Structures & Algorithms',
+        company: 'Lovely Professional University',
+        period: '2025',
+        details: 'Intensive training focusing on problem-solving and algorithmic optimization.',
         bullets: [
-            'Next-generation booking UI with real-time seat state management',
-            'Full-stack implementation using Next.js 15 and Prisma ORM',
-            'Integrated secure authentication workflows (JWT & Bcrypt)',
-            'Modern styling with Tailwind CSS and Framer Motion animations',
-            'Optimized data layer for fast concurrent booking requests'
+            'Mastered core data structures (Trees, Graphs, Hash Tables)',
+            'Optimized algorithms for time and space complexity',
+            'Solved complex programming challenges efficiently'
+        ]
+    },
+    {
+        role: 'Training in MERN Stack & DevOps',
+        company: 'CipherSchools',
+        period: '2026',
+        details: 'Comprehensive training in modern web development and DevOps practices.',
+        bullets: [
+            'Built full-stack applications using MongoDB, Express, React, Node.js',
+            'Implemented RESTful APIs and modern frontend architectures',
+            'Learned deployment pipelines and basic DevOps tooling'
         ]
     },
     {
         role: 'Yatra — Smart India Hackathon Project',
-        company: 'Tourism & Culture',
+        company: 'Smart India Hackathon',
         period: "Jul '25 – Aug '25",
         details: "Developed Yatra for the Smart India Hackathon, a digital tourism platform showcasing Sikkim's monasteries with interactive 3D models and experiences.",
         bullets: [
@@ -28,39 +37,13 @@ const experiences = [
             'Built interactive 3D monastery models using Three.js',
             'Stack: HTML, Tailwind CSS, Three.js, React.js, Node.js, MongoDB'
         ]
-    },
-    {
-        role: 'Employee Leave Management System',
-        company: 'HR & Management',
-        period: 'Feb 2026',
-        details: 'A comprehensive leave management solution with employee, manager, and admin portals with multi-level approval workflows.',
-        bullets: [
-            'Multi-level approval workflows (Manager → Admin)',
-            'Real-time leave balance tracking per employee',
-            'Role-based access control across three user types',
-            'Built with React.js, Node.js, MongoDB, and Tailwind CSS',
-            'Responsive dashboard for HR analytics and reporting'
-        ]
-    },
-    {
-        role: 'Study Plan Management System',
-        company: 'Education & Productivity',
-        period: 'Jan 2026',
-        details: 'An interactive platform for students to organise, track, and manage their study schedules, assignments, and exam preparations effectively.',
-        bullets: [
-            'Customisable study calendars with reminder notifications',
-            'Progress tracking and analytics for better time management',
-            'Assignment and exam deadline management in one place',
-            'Built with React.js, Node.js, Express, and MongoDB',
-            'Clean, distraction-free UI focused on student productivity'
-        ]
     }
 ]
 
 const skills = [
     'React.js', 'Node.js', 'JavaScript', 'TypeScript',
     'MongoDB', 'Express', 'Tailwind CSS', 'Three.js',
-    'OpenAI API', 'Git', 'Java', 'C++'
+    'OpenAI API', 'Git', 'Java'
 ]
 
 const Experience = () => {
@@ -69,7 +52,7 @@ const Experience = () => {
             <div className="exp-grid">
                 <div className="exp-left">
                     <h2 className="text-huge">EXP<span className="text-coral">.</span></h2>
-                    <p className="text-mono">Projects Built</p>
+                    <p className="text-mono">Experience & Training</p>
 
                     <div className="skills-cloud">
                         {skills.map(skill => (
