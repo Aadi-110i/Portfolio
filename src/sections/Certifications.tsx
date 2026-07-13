@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import type React from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Timeline } from '../components/ui/timeline'
 import '../styles/certifications.css'
 
@@ -87,27 +87,34 @@ const certifications = [
     }
 ]
 
-const CertCard = ({ cert, index }: { cert: typeof certifications[0]; index: number }) => {
-    const [isHovered, setIsHovered] = useState(false)
-    // Pre-calculated pseudo-random rotations for each card instance
-    const rotations = [6, -4, 8, -6];
-    const rotation = rotations[index % rotations.length];
-
+const CertCard = ({
+    cert,
+    index,
+    onMouseEnter,
+    onMouseLeave,
+    hoveredIndex,
+}: {
+    cert: typeof certifications[0]
+    index: number
+    hoveredIndex: number | null
+    onMouseEnter: (i: number) => void
+    onMouseLeave: () => void
+}) => {
     return (
         <div
             className="cert-timeline-card relative"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={() => onMouseEnter(index)}
+            onMouseLeave={onMouseLeave}
         >
-            {/* Cert info (Thinner) */}
+            {/* Cert info */}
             <div className="cert-timeline-info">
-                {/* Badge placed top right absolutely via CSS */}
+                {/* Badge */}
                 <span className="cert-timeline-badge float-badge">
                     <span className="cert-timeline-badge-dot" />
                     Verified
                 </span>
                 <h3 className="cert-timeline-title mb-2 pr-24">{cert.title}</h3>
-                
+
                 <div className="flex flex-col gap-2 mt-2">
                     <p className="cert-timeline-issuer text-mono uppercase tracking-widest text-[10px] text-coral/80 font-bold">{cert.issuer}</p>
                     {cert.partner && (
@@ -116,52 +123,67 @@ const CertCard = ({ cert, index }: { cert: typeof certifications[0]; index: numb
                 </div>
 
                 {cert.link && (
-                    <a 
-                        href={cert.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                    <a
+                        href={cert.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="cert-verify-link text-mono text-[9px] uppercase tracking-tighter mt-4 inline-block hover:text-coral transition-colors"
                     >
                         Verify Certificate ↗
                     </a>
                 )}
             </div>
-
-            {/* Hover floating image preview (on the right) */}
-            <AnimatePresence>
-                {isHovered && (
-                    <motion.div
-                        className="cert-floating-preview hidden md:block" // Hide on mobile where hover doesn't make sense
-                        initial={{ opacity: 0, scale: 0.8, rotate: rotation - 10, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, rotate: rotation, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.8, rotate: rotation + 10, y: 20 }}
-                        transition={{ type: "spring", bounce: 0.4, duration: 0.5 }}
-                        style={{
-                            position: 'absolute',
-                            right: '-10%',
-                            top: '-30%',
-                            zIndex: 30,
-                            pointerEvents: 'none',
-                        }}
-                    >
-                        <div className="cert-floating-img-square">
-                            <img
-                                src={cert.image}
-                                alt={`${cert.title} certificate`}
-                                loading="lazy"
-                            />
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
         </div>
     )
 }
 
 const Certifications = () => {
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+    const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 })
+    const [isVisible, setIsVisible] = useState(false)
+    const containerRef = useRef<HTMLDivElement>(null)
+    const animationRef = useRef<number | null>(null)
+
+    useEffect(() => {
+        const lerp = (start: number, end: number, factor: number) =>
+            start + (end - start) * factor
+
+        const animate = () => {
+            setSmoothPosition(prev => ({
+                x: lerp(prev.x, mousePosition.x, 0.12),
+                y: lerp(prev.y, mousePosition.y, 0.12),
+            }))
+            animationRef.current = requestAnimationFrame(animate)
+        }
+
+        animationRef.current = requestAnimationFrame(animate)
+        return () => {
+            if (animationRef.current) cancelAnimationFrame(animationRef.current)
+        }
+    }, [mousePosition])
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect()
+            setMousePosition({
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top,
+            })
+        }
+    }
+
     const timelineData = certifications.map((cert, index) => ({
         title: cert.date,
-        content: <CertCard cert={cert} index={index} />,
+        content: (
+            <CertCard
+                cert={cert}
+                index={index}
+                hoveredIndex={hoveredIndex}
+                onMouseEnter={(i) => { setHoveredIndex(i); setIsVisible(true) }}
+                onMouseLeave={() => { setHoveredIndex(null); setIsVisible(false) }}
+            />
+        ),
     }))
 
     return (
@@ -170,7 +192,62 @@ const Certifications = () => {
                 <h2 className="text-huge">CERTS<span className="text-coral">.</span></h2>
                 <p className="text-mono">Certifications & Credentials</p>
             </div>
-            <Timeline data={timelineData} />
+
+            {/* Wrapper to track mouse position and render floating preview */}
+            <div
+                ref={containerRef}
+                onMouseMove={handleMouseMove}
+                style={{ position: 'relative' }}
+            >
+                {/* Smooth cursor-following floating image preview */}
+                <div
+                    className="hidden md:block"
+                    style={{
+                        position: 'absolute',
+                        pointerEvents: 'none',
+                        zIndex: 50,
+                        left: 0,
+                        top: 0,
+                        transform: `translate3d(${smoothPosition.x + 24}px, ${smoothPosition.y - 130}px, 0)`,
+                        opacity: isVisible ? 1 : 0,
+                        scale: isVisible ? '1' : '0.85',
+                        transition: 'opacity 0.25s cubic-bezier(0.4,0,0.2,1), scale 0.25s cubic-bezier(0.4,0,0.2,1)',
+                        borderRadius: '14px',
+                        overflow: 'hidden',
+                        boxShadow: '0 24px 64px rgba(0,0,0,0.55)',
+                        width: '270px',
+                        height: '175px',
+                        background: '#111',
+                    }}
+                >
+                    {certifications.map((cert, index) => (
+                        <img
+                            key={cert.title}
+                            src={cert.image}
+                            alt={cert.title}
+                            style={{
+                                position: 'absolute',
+                                inset: 0,
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                transition: 'opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease',
+                                opacity: hoveredIndex === index ? 1 : 0,
+                                filter: hoveredIndex === index ? 'none' : 'blur(8px)',
+                                transform: hoveredIndex === index ? 'scale(1)' : 'scale(1.08)',
+                            }}
+                        />
+                    ))}
+                    {/* Subtle gradient overlay */}
+                    <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.25), transparent)',
+                    }} />
+                </div>
+
+                <Timeline data={timelineData} />
+            </div>
         </section>
     )
 }
