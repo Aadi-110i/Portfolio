@@ -30,7 +30,7 @@ const About = () => {
                         }}
                     >
                         <p style={{ marginBottom: '1.5rem', opacity: 0.85 }}>
-                            I'm Haswanth, a full-stack developer and UI engineer. I craft digital experiences
+                            I'm Aadarsh, a full-stack developer and UI engineer. I craft digital experiences
                             that blend performance with pixel-perfect design — from concept to deployment.
                         </p>
                         <p style={{ marginBottom: '1.5rem', opacity: 0.85 }}>
@@ -52,7 +52,7 @@ const About = () => {
                     >
                         <img
                             src="/assets/profile.jpg"
-                            alt="Haswanth"
+                            alt="Aadarsh"
                             style={{
                                 width: '100%',
                                 maxWidth: '400px',
