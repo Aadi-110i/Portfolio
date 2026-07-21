@@ -70,8 +70,10 @@ a:hover {
 .text-huge {
     font-size: clamp(2.5rem, 12vw, 8rem);
     line-height: 0.9;
-    font-weight: 700;
+    font-weight: 900;
     letter-spacing: -0.02em;
+    /* Artificial boldness beyond the font's max weight */
+    -webkit-text-stroke: 4px var(--color-text);
 }
 
 .text-mono {

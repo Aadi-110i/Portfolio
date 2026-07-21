@@ -1,8 +1,21 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
+import RobotCanvas from '../components/RobotCanvas'
 import '../styles/hero.css'
 
-export const ScrollRevealText = ({ text, progress, startOffset, endOffset, className }: { text: string; progress: any; startOffset: number; endOffset: number; className: string }) => {
+export const ScrollRevealText = ({
+    text,
+    progress,
+    startOffset,
+    endOffset,
+    className,
+}: {
+    text: string
+    progress: any
+    startOffset: number
+    endOffset: number
+    className: string
+}) => {
     const words = text.split(' ')
 
     return (
@@ -17,8 +30,18 @@ export const ScrollRevealText = ({ text, progress, startOffset, endOffset, class
                 // eslint-disable-next-line react-hooks/rules-of-hooks
                 const color = useTransform(
                     progress,
-                    [Math.max(0, wordStart - 0.005), wordStart, wordEnd, Math.min(1, wordEnd + 0.005)],
-                    ['var(--color-text)', 'var(--color-primary)', 'var(--color-primary)', 'var(--color-text)']
+                    [
+                        Math.max(0, wordStart - 0.005),
+                        wordStart,
+                        wordEnd,
+                        Math.min(1, wordEnd + 0.005),
+                    ],
+                    [
+                        'var(--color-text)',
+                        'var(--color-primary)',
+                        'var(--color-primary)',
+                        'var(--color-text)',
+                    ]
                 )
 
                 return (
@@ -32,7 +55,6 @@ export const ScrollRevealText = ({ text, progress, startOffset, endOffset, class
 }
 
 const Hero = () => {
-    // Fully passive sticky scroll — no wheel event listener, no scroll blocking
     const containerRef = useRef<HTMLDivElement>(null)
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -42,67 +64,87 @@ const Hero = () => {
     return (
         <div ref={containerRef} style={{ height: '300vh' }}>
             <section className="hero-section container" style={{ position: 'sticky', top: 0 }}>
-                <div className="hero-content">
-                    <div className="hero-left">
-                        <motion.div
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                            className="hero-title-wrapper"
-                        >
-                            <h1 className="text-huge">
-                                AADARSH<span className="text-coral">.</span>
-                            </h1>
-                        </motion.div>
 
-                        <div className="hero-bottom">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.5, duration: 0.9 }}
-                                className="hero-about"
-                            >
-                                <p className="text-mono hero-role">
-                                    <span className="status-dot" />
-                                    Full-Stack Developer &amp; UI Engineer
-                                </p>
+                {/* ── Full-width display name ── */}
+                <motion.div
+                    className="hero-name-row"
+                    initial={{ opacity: 0, y: 60 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                >
+                    <h1 className="hero-display-name">
+                        AADARSH<span className="hero-square-dot"></span>
+                    </h1>
+                </motion.div>
 
-                                <ScrollRevealText
-                                    text="Hey, I'm Aadarsh, a developer who loves turning complex problems into clean, fast, and delightful digital products. I specialize in building end-to-end web applications with a strong eye for design and obsession with performance."
-                                    progress={scrollYProgress}
-                                    startOffset={0.02}
-                                    endOffset={0.55}
-                                    className="hero-bio"
-                                />
+                {/* ── Bottom: left bio + right 3D slot ── */}
+                <div className="hero-body">
+                    {/* Left column */}
+                    <motion.div
+                        className="hero-bio-col"
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.45, duration: 0.9 }}
+                    >
+                        {/* Role label */}
+                        <p className="text-mono hero-role">
+                            <span className="status-dot" />
+                            Full-Stack Developer &amp; UI Engineer
+                        </p>
 
-                                <ScrollRevealText
-                                    text="Whether it's a sleek landing page or a full-scale SaaS platform, I bring precision and creativity to every line of code."
-                                    progress={scrollYProgress}
-                                    startOffset={0.55}
-                                    endOffset={1.0}
-                                    className="hero-bio"
-                                />
+                        {/* Bio paragraphs with scroll-reveal */}
+                        <ScrollRevealText
+                            text="Hey, I'm Aadarsh, a developer who loves turning complex problems into clean, fast, and delightful digital products. I specialise in building end to end web applications with a strong eye for design and obsession with performance."
+                            progress={scrollYProgress}
+                            startOffset={0.02}
+                            endOffset={0.55}
+                            className="hero-bio"
+                        />
 
-                                <div className="hero-stack">
-                                    {['React', 'Node.js', 'TypeScript', 'MongoDB', 'Tailwind', 'Three.js'].map(tech => (
-                                        <span key={tech} className="hero-tag text-mono">{tech}</span>
-                                    ))}
-                                </div>
+                        <ScrollRevealText
+                            text="Whether it's a sleek landing page or a fullscale SaaS platform, I bring precision and creativity to every line of code."
+                            progress={scrollYProgress}
+                            startOffset={0.55}
+                            endOffset={1.0}
+                            className="hero-bio"
+                        />
 
-                                <div className="hero-links">
-                                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hero-link text-mono">
-                                        GitHub ↗
-                                    </a>
-                                    <a href="https://www.linkedin.com/in/aadarsh-sharma11" target="_blank" rel="noopener noreferrer" className="hero-link text-mono">
-                                        LinkedIn ↗
-                                    </a>
-                                </div>
-                            </motion.div>
-
-
+                        {/* Tech stack pills */}
+                        <div className="hero-stack">
+                            {['React', 'Node.js', 'TypeScript', 'MongoDB', 'Tailwind'].map(tech => (
+                                <span key={tech} className="hero-tag text-mono">
+                                    {tech}
+                                </span>
+                            ))}
                         </div>
-                    </div>{/* hero-left */}
+
+                        {/* Social links */}
+                        <div className="hero-links">
+                            <a
+                                href="https://github.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hero-link text-mono"
+                            >
+                                GitHub ↗
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/in/aadarsh-sharma11"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hero-link text-mono"
+                            >
+                                LinkedIn ↗
+                            </a>
+                        </div>
+                    </motion.div>
+
+                    {/* Right column — Emo Robot 3D model */}
+                    <div className="hero-3d-slot">
+                        <RobotCanvas />
+                    </div>
                 </div>
+
             </section>
         </div>
     )
